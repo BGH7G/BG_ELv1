@@ -16,6 +16,8 @@ const userSchema = new mongoose.Schema({
     createAt: {type: Date, default: Date.now},
     updateAt: {type: Date, default: Date.now},
     avatar: {type: String, required: false, default: null},
+    cover:{type: String, default: null},
+    channelDesc: {type: String, default: null}
 })
 
 module.exports = userSchema;

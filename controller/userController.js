@@ -27,6 +27,18 @@ exports.login = async (req, res) => {
 exports.list = async (req, res) => {
     res.send('Hello List!');
 }
+
+exports.update = async (req, res) => {
+   await user.findByIdAndUpdate(req.user._id, req.body, {new: true})
+    return res.status(201).send('updated successfully');
+}
+
+exports.avatarUpload = async (req, res) => {
+    const avatar = req.file.filename;
+    await user.findByIdAndUpdate(req.user._id, {avatar:avatar})
+    res.status(201).send('Avatar upload successfully')
+}
+
 exports.delete = async (req, res) => {
     res.send('Hello Delete!');
 }

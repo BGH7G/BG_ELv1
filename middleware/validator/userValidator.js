@@ -23,7 +23,32 @@ module.exports.register = [
 module.exports.login = [
     body('email')
         .notEmpty().withMessage('Email is required').bail()
-        .isEmail().withMessage('The email format is incorrect').bail(),
+        .isEmail().withMessage('The email format is incorrect').bail()
+        .custom(async (value) => {
+            const email = await user.findOne({email: value});
+            if (!email) {
+                throw new Error('The account does not exist');
+            }
+        }),
     body('password')
         .notEmpty().withMessage('Password is required').bail()
+]
+
+module.exports.update = [
+    body('email')
+        .isEmail().withMessage('The email format is incorrect').bail()
+        .custom(async (value) => {
+            const email = await user.findOne({email: value});
+            if (email) {
+                throw new Error('Email already exists');
+            }
+        }),
+    body('username')
+        .isLength({ min: 3, max: 25 }).withMessage('The user name must be between 3 and 25').bail()
+        .custom(async (value) => {
+            const email = await user.findOne({username: value});
+            if (email) {
+                throw new Error('Username already exists');
+            }
+        }),
 ]

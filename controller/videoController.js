@@ -1,9 +1,10 @@
-exports.list = async (req, res) => {
-    res.send('Hello Nick!');
-}
+const {video} = require('../model/index');
 
-exports.id = async (req, res) => {
-    let id = req.params.id;
-    res.send(id)
+exports.videoUpload = async (req, res) => {
+    let data = req.body
+    data.videoUrl = req.file.filename;
+    data.uploader = req.user._id;
+    console.log(data)
+    await video.create(data)
+    res.status(201).send('Video upload successfully')
 }
-
