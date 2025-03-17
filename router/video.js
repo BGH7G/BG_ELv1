@@ -10,7 +10,9 @@ const validation = require('../middleware/validator/errorBack');
 
 // 文件上传字段名称必须与 Multer 配置中指定的名称完全匹配，否则 Multer 将无法处理上传的文件。
 router
-    .post('/videos', verifyToken, videoUpload.single('video'), validation(upload), videoController.videoUpload)
+    .get('/videosList', videoController.getVideosList)
+    .get('/:videoId', verifyToken(false),videoController.getVideo)
+    .post('/videos', verifyToken(), videoUpload.single('video'), validation(upload), videoController.videoUpload)
 ;
 
 module.exports = router;

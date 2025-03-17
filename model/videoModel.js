@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const defaultData = require('./defaultData');
 
 const videoSchema = new mongoose.Schema({
     title: {type: String,required: true},
@@ -6,10 +7,10 @@ const videoSchema = new mongoose.Schema({
     uploader:{
         type: mongoose.Types.ObjectId,
         required: true,
-        ref: 'users'
+        ref: 'User'
     },
     videoUrl: {type: String, required: true},
-    createDate: {type: Date, default: Date.now},
+    ...defaultData
 })
 
 module.exports = videoSchema

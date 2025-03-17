@@ -13,4 +13,5 @@ main().then( ()=>{
 module.exports = {
     user : mongoose.model('User', require("./userModel")),
     video : mongoose.model('Video', require("./videoModel")),
+    subscribe: mongoose.model('Subscribe', require("./subscribeModel")),
 }

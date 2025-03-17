@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-
+const defaultData = require('./defaultData');
 
 const SALT_WORK_FACTOR = 10;
 
@@ -13,11 +13,11 @@ const userSchema = new mongoose.Schema({
         select: false
     },
     email: {type: String, required: true},
-    createAt: {type: Date, default: Date.now},
-    updateAt: {type: Date, default: Date.now},
     avatar: {type: String, required: false, default: null},
     cover:{type: String, default: null},
-    channelDesc: {type: String, default: null}
+    channelDesc: {type: String, default: null},
+    subscribeCount: {type: Number, default: 0},
+    ...defaultData,
 })
 
 module.exports = userSchema;

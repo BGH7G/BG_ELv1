@@ -8,11 +8,16 @@ const {verifyToken} = require('../util/JWT')
 
 
 router
-    .get('/list', verifyToken, userController.list)
-    .put('/', verify(update), verifyToken, userController.update)
+    .get('/list', verifyToken(), userController.list)
+    .get('/subscribe/:id', verifyToken(), userController.subscribe)
+    .get('/unsubscribe/:id', verifyToken(), userController.unsubscribe)
+    .get('/subscribeList/:id', userController.subscribeList)
+    .get('/getChannelFans/:id', userController.channelFans)
+    .get('/getChannel/:id',verifyToken(false), userController.getChannel)
+    .put('/', verify(update), verifyToken(), userController.update)
     .post('/registers', verify(register), userController.register)
     .post('/logins', verify(login), userController.login)
-    .post('/avatars', verifyToken, imagesUpload.single('avatar'), userController.avatarUpload)
+    .post('/avatars', verifyToken(), imagesUpload.single('avatar'), userController.avatarUpload)
     .delete('/delete', userController.delete);
 
 
